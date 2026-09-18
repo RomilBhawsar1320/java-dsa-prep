@@ -39,6 +39,35 @@ public class LinkedList {
             temp = temp.next;
         }
     }
+    public void append(int value) {
+        Node newNode = new Node(value);
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    public void removeLast() {
+        if (size == 0) return;
+        Node temp = head;
+        Node pre = head;
+        while (temp.next != null) {
+            pre = temp;
+            temp = temp.next;
+        }
+        tail = pre;
+        tail.next = null;
+        size--;
+        if (size == 0) {
+            head = null;
+            tail = null;
+        }
+    }
+
 
     public static void main(String[] args) {
         LinkedList myLinkedList = new LinkedList(10);
