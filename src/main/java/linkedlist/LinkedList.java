@@ -67,6 +67,93 @@ public class LinkedList {
             tail = null;
         }
     }
+    public void prepend(int value) {
+        Node newNode = new Node(value);
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+        size++;
+    }
+
+    public void removeFirst() {
+        if (size == 0) return;
+        head = head.next;
+        size--;
+        if (size == 0) {
+            tail = null;
+        }
+    }
+
+    public Node get(int index) {
+        if (index < 0 || index >= size) return null;
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public void set(int index, int value) {
+        Node temp = get(index);
+        if (temp != null) {
+            temp.value = value;
+        }
+    }
+
+    public Node remove(int index) {
+        if (index < 0 || index >= size) return null;
+        if (index == 0) {
+            Node temp = head;
+            head = head.next;
+            size--;
+            if (size == 0) {
+                tail = null;
+            }
+            return temp;
+        }
+        Node pre = get(index - 1);
+        Node temp = pre.next;
+        pre.next = temp.next;
+        size--;
+        if (index == size) {
+            tail = pre;
+        }
+        return temp;
+    }
+    public void insert(int index, int value) {
+        if (index < 0 || index > size) return;
+        if (index == 0) {
+            prepend(value);
+            return;
+        }
+        if (index == size) {
+            append(value);
+            return;
+        }
+        Node newNode = new Node(value);
+        Node pre = get(index - 1);
+        newNode.next = pre.next;
+        pre.next = newNode;
+        size++;
+    }
+
+    public void reverse() {
+        Node temp = head;
+        head = tail;
+        tail = temp;
+        Node after = temp.next;
+        Node before = null;
+        for (int i = 0; i < size; i++) {
+            after = temp.next;
+            temp.next = before;
+            before = temp;
+            temp = after;
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -74,7 +161,12 @@ public class LinkedList {
         myLinkedList.getHead();
         myLinkedList.getTail();
         myLinkedList.getSize();
+
+        myLinkedList.append(20);
+        myLinkedList.prepend(13);
+        myLinkedList.removeFirst();
         myLinkedList.printList();
+
     }
 
 }
