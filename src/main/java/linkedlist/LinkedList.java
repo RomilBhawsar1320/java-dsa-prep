@@ -184,6 +184,20 @@ public class LinkedList {
         return false;
     }
 
+    public Node kthFromEnd(int k) {
+        if (k <= 0 || k > size) return null;
+        Node slow = head;
+        Node fast = head;
+        for (int i = 0; i < k; i++) {
+            fast = fast.next;
+        }
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+
 
     public static void main(String[] args) {
         LinkedList myLinkedList = new LinkedList(10);
@@ -199,7 +213,66 @@ public class LinkedList {
         Node middle = myLinkedList.findMiddle();
         System.out.println("Middle node value: " + middle.value);
         System.out.println("Has cycle: " + myLinkedList.hasCycle());
+        System.out.println("Kth from end (k=1): " + myLinkedList.kthFromEnd(2).value);
 
+
+        /*
+         Explanation of the Code (Line by Line)
+
+We first check if k is less than or equal to zero. If so, there is no valid "k-th from end" node, so we return null.
+
+We create two pointers, slow and fast, and set them both to the head of the list.
+
+We advance the fast pointer k times. This creates a gap of k nodes between fast and slow.
+
+If fast becomes null before we finish moving it k times, that means the list has fewer than k nodes. We return null.
+
+After the gap is established, we move slow and fast together, one node at a time.
+
+When fast reaches the end (null), slow will be pointing to the node that is k positions from the end.
+
+We return the node referenced by slow.
+
+
+
+
+
+Code with inline comments:
+
+
+
+public Node findKthFromEnd(int k) {
+
+    // If k is zero or negative, not valid
+    if (k <= 0) {
+        return null;
+    }
+
+    // Both pointers start at the head
+    Node slow = head;
+    Node fast = head;
+
+    // Move the fast pointer k steps ahead
+    for (int i = 0; i < k; i++) {
+        // If fast hits null before k steps,
+        // the list has fewer than k nodes
+        if (fast == null) {
+            return null;
+        }
+        fast = fast.next;
+    }
+
+    // Move both pointers until fast hits the end
+    while (fast != null) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    // Slow is now at the k-th node from the end
+    return slow;
+}
+
+         */
 
 
     }
