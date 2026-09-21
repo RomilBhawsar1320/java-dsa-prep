@@ -172,6 +172,18 @@ public class LinkedList {
         return slow;
     }
 
+    public Boolean hasCycle() {
+        if (head == null) return false;
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) return true;
+        }
+        return false;
+    }
+
 
     public static void main(String[] args) {
         LinkedList myLinkedList = new LinkedList(10);
@@ -186,6 +198,9 @@ public class LinkedList {
         myLinkedList.reverse();
         Node middle = myLinkedList.findMiddle();
         System.out.println("Middle node value: " + middle.value);
+        System.out.println("Has cycle: " + myLinkedList.hasCycle());
+
+
 
     }
 
