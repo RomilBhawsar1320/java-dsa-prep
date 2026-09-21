@@ -9,11 +9,13 @@ public class LinkedList {
     class Node {
         int value;
         Node next;
+
         Node(int value) {
             this.value = value;
             this.next = null;
         }
     }
+
     public LinkedList(int value) {
         Node newNode = new Node(value);
         head = newNode;
@@ -24,6 +26,7 @@ public class LinkedList {
     public void getHead() {
         System.out.println("Head: " + head.value);
     }
+
     public void getTail() {
         System.out.println("Tail: " + tail.value);
     }
@@ -39,6 +42,7 @@ public class LinkedList {
             temp = temp.next;
         }
     }
+
     public void append(int value) {
         Node newNode = new Node(value);
         if (size == 0) {
@@ -67,6 +71,7 @@ public class LinkedList {
             tail = null;
         }
     }
+
     public void prepend(int value) {
         Node newNode = new Node(value);
         if (size == 0) {
@@ -124,6 +129,7 @@ public class LinkedList {
         }
         return temp;
     }
+
     public void insert(int index, int value) {
         if (index < 0 || index > size) return;
         if (index == 0) {
@@ -155,6 +161,17 @@ public class LinkedList {
         }
     }
 
+    public Node findMiddle() {
+        if (head == null) return null;
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
 
     public static void main(String[] args) {
         LinkedList myLinkedList = new LinkedList(10);
@@ -166,6 +183,9 @@ public class LinkedList {
         myLinkedList.prepend(13);
         myLinkedList.removeFirst();
         myLinkedList.printList();
+        myLinkedList.reverse();
+        Node middle = myLinkedList.findMiddle();
+        System.out.println("Middle node value: " + middle.value);
 
     }
 
